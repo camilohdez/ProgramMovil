@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'reac
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import app from '../../firebaseConfig.js'; // Asegúrate de reemplazar 'path_to_firebaseConfig' con la ruta correcta a tu archivo firebaseConfig
 
-export default function Login() {
+export default function Login({ navigation }) { // Añade la prop 'navigation'
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const auth = getAuth(app);
@@ -45,19 +45,20 @@ export default function Login() {
         />
       </View>
       
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
         <Text style={styles.forgotPassword}>Forgot Password?</Text>
       </TouchableOpacity>
-      
+
       <TouchableOpacity style={styles.button} onPress={loginUser}>
         <Text style={styles.buttonText}>Continue</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+        <Text style={styles.registerText}>Registrarse</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
-// ... (El resto del código, incluyendo los estilos, permanece igual)
-
 
 const styles = StyleSheet.create({
   container: {
@@ -117,5 +118,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#FFF',
   },
+  registerText: {
+    color: '#FFA500',
+    marginTop: 15,
+  },
 });
-
