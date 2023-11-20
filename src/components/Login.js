@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import app from '../../firebaseConfig.js'; // Asegúrate de reemplazar 'path_to_firebaseConfig' con la ruta correcta a tu archivo firebaseConfig
+import app from '../../firebaseConfig.js';
 
-export default function Login({ navigation }) { // Añade la prop 'navigation'
+export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const auth = getAuth(app);
@@ -12,6 +12,7 @@ export default function Login({ navigation }) { // Añade la prop 'navigation'
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log('Usuario inició sesión exitosamente:', userCredential.user);
+        navigation.navigate('Home'); // Redirige a la pantalla Home
       })
       .catch((error) => {
         console.error('Error iniciando sesión:', error);

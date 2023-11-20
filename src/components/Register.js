@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import app from '../../firebaseConfig.js'; // Asegúrate de reemplazar con la ruta correcta
+import app from '../../firebaseConfig.js';
 
-export default function Register() {
+export default function Register({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -12,9 +12,8 @@ export default function Register() {
   const registerUser = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log('Usuario registrado:', user);
-        // Aquí puedes actualizar el perfil del usuario si es necesario
+        console.log('Usuario registrado:', userCredential.user);
+        navigation.navigate('Home'); // Redirige a la pantalla Home
       })
       .catch((error) => {
         console.error('Error registrando el usuario:', error);
@@ -88,4 +87,3 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
 });
-
